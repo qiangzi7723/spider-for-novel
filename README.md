@@ -8,8 +8,9 @@
 
 示例
 
-![image](./img/屏幕快照 2017-08-15 下午9.41.08.png)
-![image](./img/屏幕快照 2017-08-15 下午9.40.42.png)
+![image](./img/demo1.png)
+
+![image](./img/demo.png)
 
 
 
