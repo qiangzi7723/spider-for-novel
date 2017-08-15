@@ -1,18 +1,22 @@
-// 需要考虑断点以及网络突然断开的情况
+// 目前不考虑网络问题
 const agent = require('superagent');
 const cheerio = require('cheerio');
 const {format, transform} = require('./util.js');
-const fs = require('fs');
-const catalog = require('./data/catalog.json');
 const async = require('async');
 const moment = require('moment');
-const open=require('open');
+const express = require('express');
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const crawlNovelContent = require('./crawlNovelContent.js');
+const config = require('./config.js');
+require('./server.js')(app, server,express);
 
-const novel = {
-    name: '九星霸体诀',
-    url: 'http://www.qu.la/book/14883/',
-    root: 'http://www.qu.la'
-}
+io.on('connection', socket => {
+    socket.on('start', () => {
+        crawlNovelContent(socket);
+    });
+});
 
 // agent.get(novel.url).then(res => {
 //     const cache = [];
@@ -33,35 +37,6 @@ const novel = {
 //     //     console.log('数据写入完毕');
 //     // });
 // })
-const time = {
-    start: moment().format(),
-    end: ''
-}
-let txt = '';
-console.log('抓取小说内容开始时间 ', time.start);
-async.mapSeries(catalog, (item, cb) => {
-    if (!item) {
-        cb();
-        return;
-    }
-    agent.get(novel.root + item.href).then(res => {
-        console.log('正在抓取 ', item.title);
-        const $ = cheerio.load(res.text);
-        let content = $('#content').text();
-        content = content.replace(/\s+/g, '\r\n');
-        content = item.title + content + '\r\n';
-        txt += content;
-        cb();
-    })
-}, () => {
-    time.end = moment().format();
-    console.log('抓取小说内容结束时间 ', time.end);
-    console.log('写入小说内容开始时间', moment().format());
-    fs.writeFile('./data/novel.txt', txt, err => {
-        console.log('写入小说内容结束时间', moment().format());
-        console.log('小说内容抓取并存储完毕');
-    })
-})
 
 // 使用async改写
 // let cache;

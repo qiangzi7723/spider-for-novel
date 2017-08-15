@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        #wrap {
+            max-width: 400px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #5764c6;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #container {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        #percent{
+            font-size: 24px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: #252525;
+        }
+        #scroll{
+            width: 100%;
+            height: 200px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <section id='wrap'>
+        <header>
+            <div class='button' id='start-btn'>开始抓取</div>
+            <div class='button'>停止抓取</div>
+        </header>
+        <section id='container'>
+            <span id='percent'>0.000%</span>
+        </section>
+        <section>
+            <span>预计抓取完成需要 <span id='time'></span> 分钟</span>
+        </section>
+        <section>
+            <h4>Log信息面板</h4>
+            <div id='scroll'></div>
+        </section>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src='./progressbar.js'></script>
+    <script src='./index.js'></script>
+</body>
+
+</html>

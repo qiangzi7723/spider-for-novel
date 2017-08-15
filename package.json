@@ -11,8 +11,10 @@
   "dependencies": {
     "async": "^2.5.0",
     "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
     "moment": "^2.18.1",
     "open": "^0.0.5",
+    "progressbar.js": "^1.0.1",
     "superagent": "^3.5.2"
   }
 }

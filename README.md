@@ -1,13 +1,15 @@
 `npm install`
 
-`node app.js` then the spider will crawl the novel.
+`node app.js`
 
-Recommend to use devtool to start the node app.
+目前完成功能有抓取小说连接，然后通过连接抓取小说内容回本地。数据存储在`data`文件夹。通过前端页面展示抓取进度，页面写在`template`中，配合`socket`完成前后端通信。
 
-Such as `devtool app.js`.
+`node app.js`后会自动打开前端页面，通过点击前端按钮开始小说的抓取。目前未完成强制停止小说抓取的功能。
 
-You can config the crawl url in the app.js but I do not promise it will work normally. 
+示例
 
-It just a practice demo.
+![image](./img/屏幕快照 2017-08-15 下午9.41.08.png)
+![image](./img/屏幕快照 2017-08-15 下午9.40.42.png)
 
-Will add a front-end show with socket as soon.
+
+
