@@ -16,12 +16,12 @@ module.exports = (socket) => {
     socket.emit('news', '抓取小说内容开始时间 ' + moment().format());
     const sum = catalog.length;
     let i = 0;
-    const t=+new Date();
-    const leastTime=()=>{
-        const second=(+new Date()-t)/1000;
-        const min=second/60;
-        const least=min/(i/sum)-min;
-        socket.emit('progress',i/sum,least);
+    const t =+ new Date();
+    const leastTime = () => {
+        const second = (+ new Date() - t) / 1000;
+        const min = second / 60;
+        const least = min / (i / sum) - min;
+        socket.emit('progress', i / sum, least);
     }
     async.mapSeries(catalog, (item, cb) => {
         i++;
@@ -30,14 +30,19 @@ module.exports = (socket) => {
             cb();
             return;
         }
-        agent.get(novel.root + item.href).then(res => {
-            socket.emit('news', '正在抓取 ' + item.title);
+        agent.get(novel.root + item.href).timeout({response: 5000,deadline:30000}).then(res => {
+            socket.emit('news', item.title+' 抓取完成');
             const $ = cheerio.load(res.text);
             let content = $('#content').text();
             content = content.replace(/\s+/g, '\r\n');
             content = item.title + content + '\r\n';
             txt += content;
             leastTime();
+            cb();
+            return;
+        }, err => {
+            console.log(err, item.title);
+            socket.emit('news', '服务器无响应 跳过抓取 ' + item.title);
             cb();
             return;
         })
