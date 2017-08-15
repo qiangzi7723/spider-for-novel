@@ -8,9 +8,10 @@
 
 示例
 
-![image](./img/demo1.png)
+<img src='./img/demo1.png' width='400'>
 
-![image](./img/demo.png)
+<img src='./img/demo.png' width='400'>
+
 
 
 
