@@ -10,9 +10,5 @@
 
 <img src='./img/demo1.png' width='400'>
 
-<img src='./img/demo.png' width='400'>
-
-
-
 
 
